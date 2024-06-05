@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+/* Define properties --turn is for rotating angle */
+@property --turn{
+    syntax: "<angle>"; /* angle number */
+    inherits: false; /* not inheritate from superior level */
+    initial-value: 1turn; /* initialization is one turn */
+}
+
+.gradient{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    --turn: 0turn;
+    /* define variable, four block clours */
+    --color-1: #ffafcc;
+    --color-2: #a2d2ff;
+    --color-3: #cdb4db;
+    --color-4: #98dbc3;
+    background: conic-gradient(from var(--turn, 0turn), var(--color-1) 25%, var(--color-2) 25%, var(--color-2) 50%, var(--color-3) 50%, var(--color-3) 75%, var(--color-4) 75%);
+    background-position: center center;
+    /* define variable, position of mouse */
+    --offset-x: calc(var(--x) * 1px);
+    --offset-y: calc(var(--y) * 1px);
+    background-position: calc(100% + var(--offset-x, -50%)) calc(100% + var(--offset-y, -50%));
+    background-size: 200% 200%;
+    /* using animation, name, time, linear, infinite*/
+    animation: rotate 20s linear infinite;
+}
+h1{
+    font-size: 15vw;
+    font-weight: bold;
+    /* set element's mixed blend mode is overlay */
+    /* overlay is a overlapped mode, it will decide to increase or decrease exposure based on current colour */
+    mix-blend-mode: overlay;
+    line-height: 1.1;
+    background: linear-gradient(white 15%, black, black, white 95%);
+    /* set background is text */
+    /* when set it text, the background will be cropped aligned with the border */
+    background-clip: text;
+    -webkit-background-clip: text;
+    /* set the text clour is transparent */
+    -webkit-text-fill-color: transparent;
+}
+
+/* define rotating animations */
+@keyframes rotate {
+    to{
+        --turn: 1turn;
+    }
+}
